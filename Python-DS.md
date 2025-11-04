@@ -36,6 +36,22 @@ Here are some frequently used methods for Python lists:
   list1.extend(list2) # list1 becomes [1, 2, 3, 4]
   ```
 
+  **Extending a List with Another List**
+
+  **`extend([list_to_add])`**: Adds the entire `list_to_add` as a single element to the end of the original list. This results in a nested list.
+  ```python
+  list_a = [1, 2, 3]
+  list_b = [4, 5]
+  list_a.extend([list_b])
+  Or 
+  print(f"List after append: {list_a}")
+  ```
+  **Output:**
+  ```
+  List after append: [1, 2, 3, [4, 5]]
+  ```
+
+
 - **`insert(index, item)`**: Inserts an item at a specified index.
   ```python
   my_list.insert(1, "grape") # my_list becomes [1, "grape", 2, 3, "apple", "banana", "orange"]
@@ -82,45 +98,95 @@ Here are some frequently used methods for Python lists:
   ```
 
 - **`copy()`**: Returns a shallow copy of the list.
+
+  **Example with no nested items:**
+  When a list contains only simple data types like numbers and strings (no nested lists or other objects), a shallow copy created by `copy()` behaves like a full, independent copy.
   ```python
-  original_list = [1, 2, 3]
-  copied_list = original_list.copy() # copied_list is [1, 2, 3]
+  original_list = [1, 2, 3, 4, 5]
+  copied_list = original_list.copy()
+
+  print(f"Original list: {original_list}")
+  print(f"Copied list: {copied_list}")
+
+  # Modify the copied list
+  copied_list[0] = 99
+
+  print(f"Original list after modification: {original_list}")
+  print(f"Copied list after modification: {copied_list}")
+
+  # The original list remains unchanged.
   ```
 
-### Shallow vs. Deep Copy with Nested Lists
+  **Output:**
+  ```
+  Original list: [1, 2, 3, 4, 5]
+  Copied list: [1, 2, 3, 4, 5]
+  Original list after modification: [1, 2, 3, 4, 5]
+  Copied list after modification: [99, 2, 3, 4, 5]
+  ```
 
-The `copy()` method creates a *shallow copy*. This means that for a list containing other objects (like nested lists), the `copy()` method does not create copies of those nested objects. Instead, it copies references to them.
+  **Example with nested items (Shallow Copy):**
+  The `copy()` method creates a *shallow copy*. This means that for a list containing other objects (like nested lists), the `copy()` method does not create copies of those nested objects. Instead, it copies references to them.
 
-#### Shallow Copy Example
+  Consider a list of lists representing a matrix.
 
-Consider a list of lists representing a matrix.
+  ```python
+  original_matrix = [[1, 2], [3, 4]]
+  shallow_copied_matrix = original_matrix.copy()
 
-```python
-original_matrix = [[1, 2], [3, 4]]
-shallow_copied_matrix = original_matrix.copy()
+  print(f"Original matrix: {original_matrix}")
+  print(f"Shallow copied matrix: {shallow_copied_matrix}")
 
-print(f"Original matrix: {original_matrix}")
-print(f"Shallow copied matrix: {shallow_copied_matrix}")
+  # Modify an element in a nested list of the shallow copy
+  shallow_copied_matrix[0][0] = 99
 
-# Modify an element in a nested list of the shallow copy
-shallow_copied_matrix[0][0] = 99
+  print(f"Original matrix after shallow copy modification: {original_matrix}")
+  print(f"Shallow copied matrix after modification: {shallow_copied_matrix}")
 
-print(f"Original matrix after shallow copy modification: {original_matrix}")
-print(f"Shallow copied matrix after modification: {shallow_copied_matrix}")
+  # Notice that modifying the nested list in the shallow copy also affects the original!
+  # This is because both lists refer to the same nested list objects.
+  ```
 
-# Notice that modifying the nested list in the shallow copy also affects the original!
-# This is because both lists refer to the same nested list objects.
-```
+  **Output:**
+  ```
+  Original matrix: [[1, 2], [3, 4]]
+  Shallow copied matrix: [[1, 2], [3, 4]]
+  Original matrix after shallow copy modification: [[99, 2], [3, 4]]
+  Shallow copied matrix after modification: [[99, 2], [3, 4]]
+  ```
 
-**Output:**
-```
-Original matrix: [[1, 2], [3, 4]]
-Shallow copied matrix: [[1, 2], [3, 4]]
-Original matrix after shallow copy modification: [[99, 2], [3, 4]]
-Shallow copied matrix after modification: [[99, 2], [3, 4]]
-```
+  **Example with a mix of simple and nested items (Shallow Copy):**
+  When a list contains both simple immutable types and mutable nested objects (like another list), a shallow copy will duplicate the simple types but only copy references to the nested objects.
 
-#### Deep Copy Example
+  ```python
+  original_mixed_list = [1, 'a', [10, 20]]
+  shallow_copied_mixed_list = original_mixed_list.copy()
+
+  print(f"Original mixed list: {original_mixed_list}")
+  print(f"Shallow copied mixed list: {shallow_copied_mixed_list}")
+
+  # Modify a simple item in the shallow copy
+  shallow_copied_mixed_list[0] = 5
+
+  # Modify a nested item in the shallow copy
+  shallow_copied_mixed_list[2][0] = 100
+
+  print(f"Original mixed list after modification: {original_mixed_list}")
+  print(f"Shallow copied mixed list after modification: {shallow_copied_list}")
+
+  # Observe that the simple item in the original list is unchanged,
+  # but the nested list in the original is affected because it's a shared reference.
+  ```
+
+  **Output:**
+  ```
+  Original mixed list: [1, 'a', [10, 20]]
+  Shallow copied mixed list: [1, 'a', [10, 20]]
+  Original mixed list after modification: [1, 'a', [100, 20]]
+  Shallow copied mixed list after modification: [5, 'a', [100, 20]]
+  ```
+
+### Deep Copy Example
 
 To create a completely independent copy (deep copy), use the `copy` module's `deepcopy()` function:
 
