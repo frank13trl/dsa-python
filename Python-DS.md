@@ -720,3 +720,436 @@ Sets are powerful for performing mathematical set operations.
   sym_diff_set = set1.symmetric_difference(set2) # or set1 ^ set2
   # sym_diff_set is {1, 2, 4, 5}
   ```
+
+## Python Dictionaries
+
+Dictionaries are unordered, mutable collections of key-value pairs. Each key must be unique and immutable (e.g., strings, numbers, tuples), while values can be of any data type and can be duplicated.
+
+**Characteristics:**
+- **Unordered** (in Python versions before 3.7, ordered in 3.7+): Items do not have a defined order.
+- **Mutable**: Dictionaries are changeable; you can add, remove, and modify key-value pairs.
+- **Keys are Unique**: Each key must be distinct. If you assign a value to an existing key, the old value is overwritten.
+- **Keys are Immutable**: Keys must be of an immutable type (strings, numbers, tuples). Values can be mutable or immutable.
+
+**Creating a Dictionary:**
+```python
+# Using curly braces
+my_dict = {"name": "Alice", "age": 30, "city": "New York"}
+
+# Using the dict() constructor
+another_dict = dict(brand="Ford", model="Mustang", year=1964)
+
+# Creating an empty dictionary
+empty_dict = {}
+```
+
+### Accessing Dictionary Items
+
+You can access dictionary values by referring to their key name inside square brackets or by using the `get()` method.
+
+```python
+my_dict = {"name": "Alice", "age": 30, "city": "New York"}
+
+# Accessing using square brackets
+print(f"Name: {my_dict['name']}") # Output: Alice
+
+# Accessing using get() method
+print(f"Age: {my_dict.get('age')}") # Output: 30
+
+# Using get() with a default value if key is not found
+print(f"Country: {my_dict.get('country', 'USA')}") # Output: USA
+print(f"City: {my_dict.get('city', 'London')}")   # Output: New York
+```
+
+### Changing and Adding Items
+
+```python
+my_dict = {"name": "Alice", "age": 30, "city": "New York"}
+
+# Changing a value
+my_dict["age"] = 31
+print(f"Modified age: {my_dict}") # Output: {'name': 'Alice', 'age': 31, 'city': 'New York'}
+
+# Adding a new item
+my_dict["email"] = "alice@example.com"
+print(f"Added email: {my_dict}") # Output: {'name': 'Alice', 'age': 31, 'city': 'New York', 'email': 'alice@example.com'}
+```
+
+### Common Dictionary Methods
+
+- **`keys()`**: Returns a view object that displays a list of all the keys in the dictionary.
+  ```python
+  my_dict = {"name": "Alice", "age": 30}
+  print(f"Keys: {my_dict.keys()}") # Output: dict_keys(['name', 'age'])
+  ```
+
+- **`values()`**: Returns a view object that displays a list of all the values in the dictionary.
+  ```python
+  my_dict = {"name": "Alice", "age": 30}
+  print(f"Values: {my_dict.values()}") # Output: dict_values(['Alice', 30])
+  ```
+
+- **`items()`**: Returns a view object that displays a list of a dictionary's key-value tuple pairs.
+  ```python
+  my_dict = {"name": "Alice", "age": 30}
+  print(f"Items: {my_dict.items()}") # Output: dict_items([('name', 'Alice'), ('age', 30)])
+  ```
+
+- **`update(iterable)`**: Inserts the specified items to the dictionary. If the key already exists, the value gets updated.
+  ```python
+  my_dict = {"brand": "Ford", "model": "Mustang"}
+  my_dict.update({"year": 1964, "color": "red"})
+  print(f"Updated dictionary: {my_dict}") # Output: {'brand': 'Ford', 'model': 'Mustang', 'year': 1964, 'color': 'red'}
+  ```
+
+- **`pop(key, default)`**: Removes the item with the specified key and returns its value. If the key is not found, it returns `default` if provided, otherwise raises a `KeyError`.
+  ```python
+  my_dict = {"name": "Alice", "age": 30}
+  age = my_dict.pop("age")
+  print(f"Popped age: {age}") # Output: 30
+  print(f"Dictionary after pop: {my_dict}") # Output: {'name': 'Alice'}
+
+  city = my_dict.pop("city", "Unknown")
+  print(f"Popped city (with default): {city}") # Output: Unknown
+  ```
+
+- **`popitem()`**: Removes and returns the last inserted key-value pair as a tuple. (In Python versions before 3.7, it removes and returns an arbitrary item).
+  ```python
+  my_dict = {"name": "Alice", "age": 30}
+  last_item = my_dict.popitem()
+  print(f"Last item: {last_item}") # Output: ('age', 30) (or similar)
+  print(f"Dictionary after popitem: {my_dict}") # Output: {'name': 'Alice'}
+  ```
+
+- **`clear()`**: Removes all items from the dictionary.
+  ```python
+  my_dict = {"name": "Alice", "age": 30}
+  my_dict.clear()
+  print(f"Cleared dictionary: {my_dict}") # Output: {}
+  ```
+
+- **`setdefault(key, default)`**: Returns the value of the specified key. If the key does not exist, it inserts the key with the specified default value and returns the default value.
+  ```python
+  my_dict = {"name": "Alice", "age": 30}
+  
+  # Key exists, returns the value
+  age = my_dict.setdefault("age", 31)
+  print(f"Age: {age}") # Output: 30
+  print(f"Dictionary: {my_dict}") # Output: {'name': 'Alice', 'age': 30}
+
+  # Key does not exist, inserts the key with the default value
+  city = my_dict.setdefault("city", "New York")
+  print(f"City: {city}") # Output: New York
+  print(f"Dictionary: {my_dict}") # Output: {'name': 'Alice', 'age': 30, 'city': 'New York'}
+  ```
+
+### Looping Through Dictionaries
+
+You can loop through a dictionary in several ways.
+
+**Looping through keys:**
+```python
+my_dict = {"name": "Alice", "age": 30}
+for key in my_dict.keys():
+    print(key)
+# Output:
+# name
+# age
+```
+
+**Looping through values:**
+```python
+my_dict = {"name": "Alice", "age": 30}
+for value in my_dict.values():
+    print(value)
+# Output:
+# Alice
+# 30
+```
+
+**Looping through key-value pairs:**
+```python
+my_dict = {"name": "Alice", "age": 30}
+for key, value in my_dict.items():
+    print(f"{key}: {value}")
+# Output:
+# name: Alice
+# age: 30
+```
+
+### Nested Dictionaries
+
+A dictionary can contain other dictionaries. This is a common way to represent complex data structures.
+
+```python
+users = {
+    "user1": {
+        "name": "Alice",
+        "email": "alice@example.com"
+    },
+    "user2": {
+        "name": "Bob",
+        "email": "bob@example.com"
+    }
+}
+
+# Accessing nested dictionary items
+print(f"User1 name: {users['user1']['name']}") # Output: User1 name: Alice
+
+# Looping through nested dictionaries
+for user_id, user_info in users.items():
+    print(f"\nUser ID: {user_id}")
+    for key, value in user_info.items():
+        print(f"  {key}: {value}")
+```
+
+### Dictionary Comprehension
+
+Similar to list comprehension, dictionary comprehension provides a concise way to create dictionaries.
+
+**Basic Syntax:**
+`{key_expression: value_expression for item in iterable}`
+
+**Example: Creating a dictionary of squares**
+```python
+squares_dict = {x: x**2 for x in range(5)}
+print(f"Squares dictionary: {squares_dict}") # Output: {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+```
+
+**Syntax with a Condition:**
+`{key_expression: value_expression for item in iterable if condition}`
+
+**Example: Filtering even numbers and their squares**
+```python
+even_squares = {x: x**2 for x in range(10) if x % 2 == 0}
+print(f"Even squares dictionary: {even_squares}") # Output: {0: 0, 2: 4, 4: 16, 6: 36, 8: 64}
+```
+
+**Conditional Expression (if/else):**
+`{key_expression: value_expression_if_true if condition else value_expression_if_false for item in iterable}`
+
+**Example: Categorizing numbers as even/odd**
+```python
+num_category = {x: "Even" if x % 2 == 0 else "Odd" for x in range(5)}
+print(f"Number category dictionary: {num_category}") # Output: {0: 'Even', 1: 'Odd', 2: 'Even', 3: 'Odd', 4: 'Even'}
+```
+
+## Python Strings
+
+Strings are immutable sequences of characters. They are one of the most commonly used data types in Python.
+
+**Characteristics:**
+- **Immutable**: Once a string is created, it cannot be changed.
+- **Ordered**: Characters in a string have a defined order.
+
+**Creating a String:**
+```python
+# Using single quotes
+my_string = 'Hello, World!'
+
+# Using double quotes
+another_string = "Python is fun."
+
+# Multiline strings
+multiline_string = """This is a
+multiline
+string."""
+```
+
+### Accessing Characters and Slicing
+
+You can access individual characters using indexing and a range of characters using slicing.
+
+```python
+my_string = "Hello, World!"
+
+# Accessing a single character
+print(f"First character: {my_string[0]}") # Output: H
+
+# Slicing
+print(f"Slice from index 7 to 12: {my_string[7:12]}") # Output: World
+```
+
+### Common String Methods
+
+- **`upper()`**: Returns a new string with all characters in uppercase.
+  ```python
+  my_string = "Hello, World!"
+  print(f"Uppercase: {my_string.upper()}") # Output: HELLO, WORLD!
+  ```
+
+- **`lower()`**: Returns a new string with all characters in lowercase.
+  ```python
+  my_string = "Hello, World!"
+  print(f"Lowercase: {my_string.lower()}") # Output: hello, world!
+  ```
+
+- **`strip()`**: Returns a new string with leading and trailing whitespace removed.
+  ```python
+  my_string = "  Hello, World!  "
+  print(f"Stripped: '{my_string.strip()}'") # Output: 'Hello, World!'
+  ```
+
+- **`replace(old, new)`**: Returns a new string where all occurrences of `old` are replaced with `new`.
+  ```python
+  my_string = "Hello, World!"
+  print(f"Replaced: {my_string.replace('World', 'Python')}") # Output: Hello, Python!
+  ```
+
+- **`split(separator)`**: Returns a list of substrings separated by the `separator`. If no separator is provided, it splits by whitespace.
+  ```python
+  my_string = "apple,banana,cherry"
+  print(f"Split: {my_string.split(',')}") # Output: ['apple', 'banana', 'cherry']
+  ```
+
+- **`join(iterable)`**: Joins the elements of an iterable into a single string, with the string as the separator.
+  ```python
+  my_list = ['apple', 'banana', 'cherry']
+  print(f"Joined: {','.join(my_list)}") # Output: apple,banana,cherry
+  ```
+
+- **`startswith(prefix)`**: Returns `True` if the string starts with the specified prefix, otherwise `False`.
+  ```python
+  my_string = "Hello, World!"
+  print(f"Starts with 'Hello': {my_string.startswith('Hello')}") # Output: True
+  ```
+
+- **`endswith(suffix)`**: Returns `True` if the string ends with the specified suffix, otherwise `False`.
+  ```python
+  my_string = "Hello, World!"
+  print(f"Ends with 'World!': {my_string.endswith('World!')}") # Output: True
+  ```
+
+- **`find(substring)`**: Returns the lowest index of the substring if it is found in the string. If it is not found, it returns -1.
+  ```python
+  my_string = "Hello, World!"
+  print(f"Find 'World': {my_string.find('World')}") # Output: 7
+  ```
+
+- **`count(substring)`**: Returns the number of non-overlapping occurrences of a substring in the string.
+  ```python
+  my_string = "hello, hello, hello"
+  print(f"Count 'hello': {my_string.count('hello')}") # Output: 3
+  ```
+
+
+
+### String Formatting
+
+There are several ways to format strings in Python.
+
+**1. f-Strings (Formatted String Literals)**
+Introduced in Python 3.6, f-strings are the most modern and preferred way to format strings. They are concise and readable.
+
+```python
+name = "Alice"
+age = 30
+print(f"My name is {name} and I am {age} years old.")
+# Output: My name is Alice and I am 30 years old.
+
+# Formatting floating-point numbers
+pi = 3.1415926535
+print(f"Pi to 2 decimal places: {pi:.2f}") # Output: Pi to 2 decimal places: 3.14
+print(f"Pi to 5 decimal places: {pi:.5f}") # Output: Pi to 5 decimal places: 3.14159
+```
+
+**2. `str.format()` Method**
+This method is more versatile than the old `%` formatting and was the standard before f-strings.
+
+```python
+name = "Bob"
+age = 25
+
+# Using positional arguments
+print("My name is {} and I am {} years old.".format(name, age))
+
+# Using keyword arguments
+print("My name is {name} and I am {age} years old.".format(name="Charlie", age=35))
+
+# Formatting floating-point numbers
+pi = 3.1415926535
+print("Pi to 2 decimal places: {:.2f}".format(pi)) # Output: Pi to 2 decimal places: 3.14
+print("Pi to 5 decimal places: {:.5f}".format(pi)) # Output: Pi to 5 decimal places: 3.14159
+```
+
+**3. `%` Operator (Old Style)**
+This is the original way of formatting strings in Python, similar to `printf` in C. It is less flexible and can be error-prone, so it is generally not recommended for new code.
+
+```python
+name = "David"
+age = 40
+print("My name is %s and I am %d years old." % (name, age))
+
+# Formatting floating-point numbers
+pi = 3.1415926535
+print("Pi to 2 decimal places: %.2f" % pi) # Output: Pi to 2 decimal places: 3.14
+print("Pi to 5 decimal places: %.5f" % pi) # Output: Pi to 5 decimal places: 3.14159
+```
+
+
+
+### String Concatenation and Repetition
+
+You can combine strings using the `+` operator and repeat them using the `*` operator.
+
+```python
+# Concatenation
+str1 = "Hello"
+str2 = "World"
+result = str1 + ", " + str2 + "!"
+print(result) # Output: Hello, World!
+
+# Repetition
+str1 = "abc"
+result = str1 * 3
+print(result) # Output: abcabcabc
+```
+
+
+
+### More String Methods
+
+Here are a few more useful string methods for checking the content of a string.
+
+- **`isalnum()`**: Returns `True` if all characters in the string are alphanumeric (letters or numbers).
+  ```python
+  print("abc123".isalnum()) # Output: True
+  print("abc 123".isalnum()) # Output: False
+  ```
+
+- **`isalpha()`**: Returns `True` if all characters in the string are alphabetic.
+  ```python
+  print("abc".isalpha()) # Output: True
+  print("abc1".isalpha()) # Output: False
+  ```
+
+- **`isdigit()`**: Returns `True` if all characters in the string are digits.
+  ```python
+  print("123".isdigit()) # Output: True
+  print("123a".isdigit()) # Output: False
+  ```
+
+- **`islower()`**: Returns `True` if all cased characters in the string are lowercase.
+  ```python
+  print("hello".islower()) # Output: True
+  print("Hello".islower()) # Output: False
+  ```
+
+- **`isupper()`**: Returns `True` if all cased characters in the string are uppercase.
+  ```python
+  print("HELLO".isupper()) # Output: True
+  print("Hello".isupper()) # Output: False
+  ```
+
+- **`isspace()`**: Returns `True` if all characters in the string are whitespace characters.
+  ```python
+  print("   ".isspace()) # Output: True
+  print(" a ".isspace()) # Output: False
+  ```
+
+- **`title()`**: Returns a titlecased version of the string, where words start with an uppercase character and the remaining characters are lowercase.
+  ```python
+  print("hello world".title()) # Output: Hello World
+  ```
+
+

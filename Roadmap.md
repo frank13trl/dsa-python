@@ -8,8 +8,8 @@
 - [x] Recursion (Basic)
 
 ## 2. Basic Data Structures
-- [ ] Arrays
-- [ ] Strings
+- [x] Arrays
+- [x] Strings
 - [ ] Linked Lists
   - [ ] Singly
   - [ ] Doubly
