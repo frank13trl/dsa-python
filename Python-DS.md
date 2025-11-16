@@ -934,6 +934,64 @@ num_category = {x: "Even" if x % 2 == 0 else "Odd" for x in range(5)}
 print(f"Number category dictionary: {num_category}") # Output: {0: 'Even', 1: 'Odd', 2: 'Even', 3: 'Odd', 4: 'Even'}
 ```
 
+### Sorting Dictionaries
+
+While dictionaries in Python 3.7+ maintain insertion order, you often need to sort them based on their keys or values. Sorting a dictionary doesn't change the original dictionary but instead provides a sorted representation, typically as a list of tuples.
+
+**1. Sorting by Keys**
+
+You can sort a dictionary by its keys by iterating over the sorted keys.
+
+```python
+my_dict = {'c': 3, 'a': 1, 'd': 4, 'b': 2}
+
+# Sort keys and create a new dictionary (if you need a sorted dictionary)
+sorted_by_key = {k: my_dict[k] for k in sorted(my_dict.keys())}
+print(f"Sorted by key (new dict): {sorted_by_key}")
+
+# Or loop through sorted keys to access values in order
+print("Looping through sorted keys:")
+for key in sorted(my_dict):
+    print(f"  {key}: {my_dict[key]}")
+```
+
+**Output:**
+```
+Sorted by key (new dict): {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+Looping through sorted keys:
+  a: 1
+  b: 2
+  c: 3
+  d: 4
+```
+
+**2. Sorting by Values**
+
+To sort by values, you need to use the `sorted()` function on the dictionary's `items()` and provide a `lambda` function to the `key` argument to specify that the sorting should be based on the value (the second element of the item tuple).
+
+```python
+my_dict = {'c': 3, 'a': 1, 'd': 4, 'b': 2}
+
+# Sort items by value (the second element of the tuple, index 1)
+sorted_items = sorted(my_dict.items(), key=lambda item: item[1])
+print(f"Sorted by value (list of tuples): {sorted_items}")
+
+# To get a new dictionary sorted by value
+sorted_by_value_dict = {k: v for k, v in sorted_items}
+print(f"Sorted by value (new dict): {sorted_by_value_dict}")
+
+# For descending order
+sorted_items_desc = sorted(my_dict.items(), key=lambda item: item[1], reverse=True)
+print(f"Sorted by value descending: {sorted_items_desc}")
+```
+
+**Output:**
+```
+Sorted by value (list of tuples): [('a', 1), ('b', 2), ('c', 3), ('d', 4)]
+Sorted by value (new dict): {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+Sorted by value descending: [('d', 4), ('c', 3), ('b', 2), ('a', 1)]
+```
+
 ## Python Strings
 
 Strings are immutable sequences of characters. They are one of the most commonly used data types in Python.
